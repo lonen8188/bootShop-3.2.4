@@ -12,6 +12,7 @@
                 e.preventDefault();
                 page(0);
             });
+        //    검색 버튼을 클릭할 때 조회할 페이지 번호를 0으로 설정해서 조회
         });
 
         function page(page){
@@ -71,15 +72,18 @@
                     <a th:onclick="'javascript:page(' + ${items.number - 1} + ')'" aria-label='Previous' class="page-link">
                         <span aria-hidden='true'>Previous</span>
                     </a>
+                    <!--  Previous 버튼 클릭시 앞으로                   -->
                 </li>
 
                 <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
                     <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
+                    <!-- 페이지 번호 순서 처리 : 클릭시 페이지 이동                   -->
                 </li>
 
                 <li class="page-item" th:classappend="${items.last}?'disabled'">
                     <a th:onclick="'javascript:page(' + ${items.number + 1} + ')'" aria-label='Next' class="page-link">
                         <span aria-hidden='true'>Next</span>
+                        <!--  Next 버튼 클릭시 다음 페이지로                       -->
                     </a>
                 </li>
 

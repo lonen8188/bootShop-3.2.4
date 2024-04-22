@@ -20,8 +20,11 @@
     </thead>
     <tbody>
     <tr th:each="itemDto, status: ${itemDtoList}">
+    <!--  리스트로 만든 모델 영역에 itemDtoList를 가져와 반복 처리 객체마다 itemDto로 이름을 지정하여 ~ -->
         <td th:text="${status.index}"></td>
+        <!-- 상태에 인덱스 출력 1~       -->
         <td th:text="${itemDto.itemNm}"></td>
+        <!-- itemDto객체 안에 있는 itemNm 출력    -->
         <td th:text="${itemDto.itemDetail}"></td>
         <td th:text="${itemDto.price}"></td>
         <td th:text="${itemDto.regTime}"></td>

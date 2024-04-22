@@ -34,6 +34,8 @@ class CartTest {
 
     @PersistenceContext
     EntityManager em;
+    //JPA를 사용하기 위해서는 Database 구조와 맵핑된 JPA Entity 들을 먼저 생성하게 된다.
+    //그리고, 모든 JPA의 동작은 이 Entity들을 기준으로 돌아가게 되는데, 이 때 Entity들을 관리하는 역할을 하는 녀석이 바로 EntityManager인 것이다.
 
     public Member createMember(){
         MemberFormDto memberFormDto = new MemberFormDto();

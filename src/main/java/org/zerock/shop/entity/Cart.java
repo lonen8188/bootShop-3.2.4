@@ -16,11 +16,11 @@ public class Cart extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
+    @OneToOne(fetch = FetchType.LAZY)  // 1:1 매핑 (회원과 카트)
+    @JoinColumn(name="member_id")   // 조인은 회원의 id와(매핑할 외래키 foreign key(member_id) references member )
     private Member member;
 
-    public static Cart createCart(Member member){
+    public static Cart createCart(Member member){  // 331 추가 장바구니 용
         Cart cart = new Cart();
         cart.setMember(member);
         return cart;

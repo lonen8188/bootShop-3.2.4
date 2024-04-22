@@ -31,14 +31,16 @@ public class MemberController {
 
     @PostMapping(value = "/new")
     public String newMember(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
-
+        // spring-boot-starter-validation를 활용한 검증 bindingResult객체 추가
         if(bindingResult.hasErrors()){
             return "member/memberForm";
+            // 검증 후 결과를 bindingResult에 담아 준다.
         }
 
         try {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);
+            // 가입 처리시 이메일이 중복이면 메시지를 전달한다.
         } catch (IllegalStateException e){
             model.addAttribute("errorMessage", e.getMessage());
             return "member/memberForm";

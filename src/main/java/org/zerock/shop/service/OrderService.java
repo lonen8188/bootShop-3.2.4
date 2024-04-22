@@ -27,22 +27,22 @@ import org.thymeleaf.util.StringUtils;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final ItemRepository itemRepository;
+    private final ItemRepository itemRepository;  // 아이템 리포지토리 CRUD
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;  // 회원 리포지토리 CRUD
 
-    private final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;  // 주문 리포지토리 CRUD
 
-    private final ItemImgRepository itemImgRepository;
+    private final ItemImgRepository itemImgRepository;  // 아이템이미지 리포지토리 CRUD
 
     public Long order(OrderDto orderDto, String email){
-
+        // 주문자의 이메일과 오더를 받아 아이템을 찾음.
         Item item = itemRepository.findById(orderDto.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
 
         Member member = memberRepository.findByEmail(email);
 
-        List<OrderItem> orderItemList = new ArrayList<>();
+        List<OrderItem> orderItemList = new ArrayList<>();  // 주문자의 주문이 다수임으로 리스트로 처리함.
         OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
         orderItemList.add(orderItem);
         Order order = Order.createOrder(member, orderItemList);
@@ -51,7 +51,7 @@ public class OrderService {
         return order.getId();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)  // 313 추가 (OrderControll에서 호출 됨)
     public Page<OrderHistDto> getOrderList(String email, Pageable pageable) {
 
         List<Order> orders = orderRepository.findOrders(email, pageable);
@@ -76,8 +76,8 @@ public class OrderService {
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
     }
 
-    @Transactional(readOnly = true)
-    public boolean validateOrder(Long orderId, String email){
+    @Transactional(readOnly = true)  // 324 추가
+    public boolean validateOrder(Long orderId, String email){  // 현재 로그인 사용자와 주문 데이터를 생성한 사용자가 같은지 검사
         Member curMember = memberRepository.findByEmail(email);
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
@@ -90,14 +90,14 @@ public class OrderService {
         return true;
     }
 
-    public void cancelOrder(Long orderId){
+    public void cancelOrder(Long orderId){  // 주문 취소용 메서드
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
         order.cancelOrder();
     }
 
     public Long orders(List<OrderDto> orderDtoList, String email){
-
+        // 361 추가
         Member member = memberRepository.findByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
 

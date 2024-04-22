@@ -37,11 +37,13 @@
     <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active item">
+            <!--   화면 중간 베너             -->
                 <img class="d-block w-100 banner" src="https://user-images.githubusercontent.com/13268420/112147492-1ab76200-8c20-11eb-8649-3d2f282c3c02.png" alt="First slide">
             </div>
         </div>
     </div>
 
+    <!-- 메인페이지 오른쪽 상단 검색   -->
     <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
     <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
         <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
@@ -54,6 +56,7 @@
                     <a th:href="'/item/' +${item.id}" class="text-dark">
                         <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
                         <div class="card-body">
+                        <!--  아이템의 이미지와     이름, 상세정보, 가격 출력                      -->
                             <h4 class="card-title">[[${item.itemNm}]]</h4>
                             <p class="card-text">[[${item.itemDetail}]]</p>
                             <h3 class="card-title text-danger">[[${item.price}]]원</h3>
@@ -63,7 +66,7 @@
             </div>
         </th:block>
     </div>
-
+    <!-- 페이징 처리   -->
     <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
         <ul class="pagination justify-content-center">
 

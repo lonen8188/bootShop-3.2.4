@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 @Table(name="item_img")
 @Getter @Setter
 public class ItemImg extends BaseEntity{
+    // 상품 이미지 처리용
 
     @Id
     @Column(name="item_img_id")
@@ -22,7 +23,7 @@ public class ItemImg extends BaseEntity{
 
     private String repimgYn; //대표 이미지 여부
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)  // 상품 엔티티와 다대일 단방향 관계로 매핑(지연로딩 : 필요할 때 쿼리 실행)
     @JoinColumn(name = "item_id")
     private Item item;
 

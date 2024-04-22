@@ -16,8 +16,8 @@
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/order/" + orderId + "/cancel";
-            var paramData = {
+            var url = "/order/" + orderId + "/cancel";  // 주문 취소용 url 생성
+            var paramData = {                           // 취소할 주문 번호를 파라미터로 전달
                 orderId : orderId,
             };
 
@@ -34,7 +34,7 @@
                 },
                 dataType : "json",
                 cache   : false,
-                success  : function(result, status){
+                success  : function(result, status){    // 취소 성공시 현재 페이지롤 redirect
                     alert("주문이 취소 되었습니다.");
                     location.href='/orders/' + [[${page}]];
                 },
@@ -98,6 +98,7 @@
             <div class="ml-3">
                 <th:block th:if="${order.orderStatus == T(org.zerock.shop.constant.OrderStatus).ORDER}">
                     <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
+                                                                                                                    <!--  15 행 함수 실행                   -->
                 </th:block>
                 <th:block th:unless="${order.orderStatus == T(org.zerock.shop.constant.OrderStatus).ORDER}">
                     <h4>(취소 완료)</h4>

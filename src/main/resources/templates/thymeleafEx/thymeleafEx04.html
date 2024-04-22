@@ -19,8 +19,15 @@
     </tr>
     </thead>
     <tbody>
+
+
     <tr th:each="itemDto, status: ${itemDtoList}">
+
+        <!-- th:if="%{status.even}" th:text="짝수"   -->
+        <!-- th:unless="%{status.even}" th:text="홀수"   -->
+
         <td th:switch="${status.even}">
+            <!--  해당 인덱스가 짝수일 경우 th:case=true, 홀수 일 경우  th:case=false -->
             <span th:case=true>짝수</span>
             <span th:case=false>홀수</span>
         </td>
